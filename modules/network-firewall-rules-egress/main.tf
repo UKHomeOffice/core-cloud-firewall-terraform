@@ -15,9 +15,10 @@ import {
 }
 
 resource "aws_networkfirewall_firewall" "existing_firewall" {
-  name                = var.network_firewall_name ## Existing firewall name
-  vpc_id              = var.vpc_id                ## Use the existing VPC ID
-  firewall_policy_arn = aws_networkfirewall_firewall_policy.policy.arn
+  name                   = var.network_firewall_name ## Existing firewall name
+  vpc_id                 = var.vpc_id                ## Use the existing VPC ID
+  firewall_policy_arn    = aws_networkfirewall_firewall_policy.policy.arn
+  enabled_analysis_types = var.enabled_analysis_types
 
   # Subnet mappings (use the existing subnets here)
   dynamic "subnet_mapping" {
@@ -50,10 +51,7 @@ resource "aws_networkfirewall_firewall_policy" "policy" {
     # Reference AWS managed or custom stateful rule groups
 
     # Specify stateful default actions
-    stateful_default_actions = [
-      #  "aws:drop_established", 
-      "aws:alert_established"
-    ]
+    stateful_default_actions = var.enabled_drop_stateful_default_actions ? ["aws:drop_established", "aws:alert_established"] : ["aws:alert_established"]
 
     # Configure stateful engine options
     stateful_engine_options {

@@ -39,3 +39,20 @@ variable "aws_managed_rule_groups" {
   description = "Network Firewall - A list of AWS managed stateful rule group arns"
   type        = string
 }
+
+variable "enabled_analysis_types" {
+  description = "Types of analysis metrics (TLS_SNI, HTTP_HOST) to collect"
+  type        = list(string)
+  default     = []
+}
+
+variable "network_firewall_rule_group_name" {
+  description = "Network Firewall Rule Group name to be supplied"
+  type        = string
+}
+
+variable "enabled_drop_stateful_default_actions" {
+  description = "Give the stateful rule the permission aws:drop_established"
+  type        = bool
+  default     = false
+}
