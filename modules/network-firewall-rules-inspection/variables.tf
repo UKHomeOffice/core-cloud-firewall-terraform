@@ -1,36 +1,65 @@
-# variables
-variable "tags" {
-  description = "Tags to apply to the resources."
-  type        = map(string)
-  default     = {}
-}
+############################################
+# Variables
+############################################
+
+
+
 
 variable "account_id" {
-    description = "Network Firewall Account-id"
-    type        = string  
+  type        = string
 }
 
+variable "region" {
+  description = "AWS region for Network Firewall ARNs"
+  type        = string
+  default     = "eu-west-2"
+}
+
+
 variable "network_firewall_name" {
-    description = "Network Firewall name to be supplied"
-    type        = string  
+  description = "Existing Network Firewall name (created by LZA)"
+  type        = string
 }
 
 variable "network_firewall_policy_name" {
-    description = "Network Firewall Policy name to be supplied"
-    type        = string  
+  description = "Firewall policy name to apply"
+  type        = string
 }
 
 variable "vpc_id" {
-    description = "VPC assocaited with Network Firewall"
-    type        = string  
+  description = "VPC ID of the existing firewall"
+  type        = string
 }
 
-variable "rules_file" {
-    description = "Network Firewall rules file"
-    type        = string  
+# AWS-managed stateful rule groups (names + priorities)
+variable "aws_managed_stateful_groups" {
+  description = "List of AWS-managed stateful rule groups by name with priorities."
+  type = list(object({
+    name     = string
+    priority = number
+  }))
+  default = []
 }
 
-variable "aws_managed_rule_groups" {
-    description = "Network Firewall - A list of AWS maanged stateful rule group arns"
-    type        = string  
+#  Custom stateful rule groups (full ARNs + priorities)
+variable "custom_stateful_groups" {
+  description = "List of custom stateful rule groups (full ARNs) with priorities."
+  type = list(object({
+    arn      = string
+    priority = number
+  }))
+  default = []
+}
+
+variable "stateful_default_actions" {
+  description = "Stateful default actions for NFW policy."
+  type        = list(string)
+
+  validation {
+    condition = alltrue([
+      for a in var.stateful_default_actions :
+      contains(["aws:drop_established", "aws:alert_established"], a)
+    ])
+    error_message = "Only 'aws:drop_established' and 'aws:alert_established' are allowed."
+  }
 }
