@@ -12,7 +12,7 @@ updates:
       - "dependencies"
       - "patch"
   - package-ecosystem: "terraform"
-    directory: "/modules/aws/group_account_assignments"
+    directory: "/"
     schedule:
       interval: "daily"
     commit-message:
@@ -23,40 +23,7 @@ updates:
       - "dependencies"
       - "patch"
   - package-ecosystem: "terraform"
-    directory: "/modules/aws/group_user_memberships"
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: "(TF)"
-    reviewers:
-      - "UKHomeOffice/core-cloud-devops"
-    labels:
-      - "dependencies"
-      - "patch"
-  - package-ecosystem: "terraform"
-    directory: "/modules/aws/groups"
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: "(TF)"
-    reviewers:
-      - "UKHomeOffice/core-cloud-devops"
-    labels:
-      - "dependencies"
-      - "patch"
-  - package-ecosystem: "terraform"
-    directory: "/modules/aws/ssoadmin_instance"
-    schedule:
-      interval: "daily"
-    commit-message:
-      prefix: "(TF)"
-    reviewers:
-      - "UKHomeOffice/core-cloud-devops"
-    labels:
-      - "dependencies"
-      - "patch"
-  - package-ecosystem: "terraform"
-    directory: "/modules/aws/users"
+    directory: "/modules/*"
     schedule:
       interval: "daily"
     commit-message:
