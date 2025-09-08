@@ -1,6 +1,6 @@
 resource "aws_networkfirewall_rule_group" "allow_domains_for_nonprod_01" {
   capacity    = 2000
-  name        = "egress-allowed-domainlist-to-internet-01"
+  name        = var.network_firewall_rule_group_name
   description = "Allow egress internet access for Non-Production environment"
   type        = "STATEFUL"
   rule_group {
