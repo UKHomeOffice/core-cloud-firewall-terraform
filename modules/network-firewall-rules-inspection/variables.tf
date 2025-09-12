@@ -2,9 +2,6 @@
 # Variables
 ############################################
 
-
-
-
 variable "account_id" {
   type        = string
 }
@@ -31,38 +28,24 @@ variable "vpc_id" {
   type        = string
 }
 
-# # AWS-managed stateful rule groups (names + priorities)
-# variable "aws_managed_stateful_groups" {
-#   description = "List of AWS-managed stateful rule groups by name with priorities."
-#   type = list(object({
-#     name     = string
-#     priority = number
-#   }))
-#   default = []
-# }
-
-# #  Custom stateful rule groups (full ARNs + priorities)
-# variable "custom_stateful_groups" {
-#   description = "List of custom stateful rule groups (full ARNs) with priorities."
-#   type = list(object({
-#     arn      = string
-#     priority = number
-#   }))
-#   default = []
-# }
-
-# AWS-managed stateful rule groups
+# AWS-managed stateful rule groups (names + priorities)
 variable "aws_managed_stateful_groups" {
-  description = "List of AWS-managed stateful rule group names."
-  type        = list(string)
-  default     = []
+  description = "List of AWS-managed stateful rule groups by name with priorities."
+  type = list(object({
+    name     = string
+    priority = number
+  }))
+  default = []
 }
 
-# Custom stateful rule groups
+#  Custom stateful rule groups (full ARNs + priorities)
 variable "custom_stateful_groups" {
-  description = "List of custom stateful rule group names."
-  type        = list(string)
-  default     = []
+  description = "List of custom stateful rule groups (full ARNs) with priorities."
+  type = list(object({
+    arn      = string
+    priority = number
+  }))
+  default = []
 }
 
 variable "stateful_default_actions" {
